@@ -23,7 +23,20 @@ INSTALLATION INSTRUCTIONS:
   4) Find the unzipped MOZZI folder on your computer and open it. You should now see the MOZZI library at the bottom   of the dropdown menu. This means that the library was installed and is now available for you to use in your          project.
 
 MANIFEST:
-
+  
+  So far this project includes the following files:
+  
+  MozziGuts.h
+  
+  Oscil.h
+  
+  tables/sin2048_int8.h
+  
+  tables/cos2048_int8.h
+  
+  mozzi_midi.h
+  
+  mozzi_fixmath.h
 
 COPYRIGHT NOTICE:
 
