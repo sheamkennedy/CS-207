@@ -44,7 +44,17 @@ This project is liscenced under (CC BY 4.0). More information on this liscence c
 
 CREDITS:
 
+There are two sources of inspiration to be credited for this project idea:
+
+The first is an eight-step Arduino sequencer created by Instructables user TobaTobias found at the following link: 
+http://www.instructables.com/id/Arduino-Step-Sequencer/
+
+The second is a four-step Arduino sequencer that utilizes the Mozzi Library. This project was created by Denny George and is found at the following link:
+https://anarcissist.wordpress.com/2013/11/09/arduino-noise-four-step-sequencer/
+
+I'd also like to credit the MOZZI library for it's use in this project.
 
 CONTACT INFORMATION:
 
+Email: sheamkennedy@gmail.com
 
