@@ -12,7 +12,15 @@ CONFIGURATION:
 
 INSTALLATION INSTRUCTIONS:
 
+  This project relies on the MOZZI library. To install the MOZZI library follow these instructions:
   
+  1) Download the MOZZI library here: http://sensorium.github.io/Mozzi/
+  
+  2) Unzip the downloaded file and name the resulting file as something useful like MOZZI.
+  
+  3) Now in the Arduino IDE go to Sketch > Import Library and select Add Library from the dropdown list.
+  
+  4) Find the unzipped MOZZI folder on your computer and open it. You should now see the MOZZI library at the bottom   of the dropdown menu. This means that the library was installed and is now available for you to use in your          project.
 
 MANIFEST:
 
