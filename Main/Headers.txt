@@ -1,0 +1,13 @@
+  These are the headers used in this project:
+  
+  MozziGuts.h
+  
+  Oscil.h
+  
+  tables/sin2048_int8.h
+  
+  tables/cos2048_int8.h
+  
+  mozzi_midi.h
+  
+  mozzi_fixmath.h
