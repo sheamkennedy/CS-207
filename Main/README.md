@@ -25,6 +25,8 @@ FEATURES:
   
   Step Pattern Selection - a switch which allows the user to choose the pattern in which 	the notes play. The first    pattern will be the original pattern which is in the order 1-2-3-4. The second pattern will be a reversed pattern    which plays the notes in the order 4-3-2-1.
   
+  ![Synth Concept](http://s28.postimg.org/65hl2z2od/Synth_Concept.jpg)
+  
 
 CONFIGURATION:
 
