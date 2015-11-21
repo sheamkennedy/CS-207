@@ -62,6 +62,8 @@ const char INPUT_PIN2 = 2; // set the input for the knob to analog pin 2
 
 // Set up digital pins to be used as switches 
 #define STOP_PIN 7 // Switch for arpeggios pattern change
+#define STOP_PIN2 8 // First switch for choosing waveform
+#define STOP_PIN3 10 // Second switch for choosing waveform
 #define STOP_PIN4 6 // Switch for turning on/off vibrato (works by setting the variable "depth")
 
 // Constants
@@ -73,12 +75,15 @@ byte pitch = 0; //Pitch intensity
 char arpstep = 1; // Arpeggiator step
 byte pitchstep = 0; // Pitch step
 byte tempo = 0; // Tempo of arpeggiator
+byte switchSetting = 0; // Variable to store the setting of a series of switches to determine which waveform should play
 float depth = 0.1; // Depth of vibrato
 
 // This is our initializing statement/setup:
 void setup(){
   // Setup up digital pins as inputs
   pinMode(STOP_PIN, INPUT);
+  pinMode(STOP_PIN2, INPUT);
+  pinMode(STOP_PIN3, INPUT);
   pinMode(STOP_PIN4, INPUT);
   
   // Begins Mozzi at the control rate specified above
@@ -101,6 +106,8 @@ void updateControl(){
 
   // Read digital pin values
   int patternSwitch = digitalRead(STOP_PIN); // Reads switch value for pattern
+  int patternSwitch2 = digitalRead(STOP_PIN2); // Reads switch 1 value for waveform
+  int patternSwitch10 = digitalRead(STOP_PIN3); // Reads switch 2 value for waveform
   int vibratoSwitch = digitalRead(STOP_PIN4); // Reads switch value for vibrato
 
   // A formula that determines the degree of vibrato based on the depth
@@ -159,6 +166,21 @@ void updateControl(){
     aSquare.setFreq(760+(10*pitch)+(pitchstep*960) + vibrato);
   }    
   }
+
+  // This series of if-else statements checks the orientation of 2 switches which together have a combined number
+  // of 4 possible orientations. A specific waveform is output based on the switch combination.
+  if((patternSwitch2 == HIGH) && (patternSwitch10 == HIGH)){
+    switchSetting = 0; // Sets variable which is applied later on to determine the waveform being output
+  }
+  else if((patternSwitch2 == LOW) && (patternSwitch10 == HIGH)){
+    switchSetting = 1; // Sets variable which is applied later on to determine the waveform being output
+  }
+  else if((patternSwitch2 == LOW) && (patternSwitch10 == LOW)){
+    switchSetting = 2; // Sets variable which is applied later on to determine the waveform being output
+  }
+  else if((patternSwitch2 == HIGH) && (patternSwitch10 == LOW)){
+    switchSetting = 3; // Sets variable which is applied later on to determine the waveform being output
+  }
   
   // Print any value to the Serial monitor for debugging purposes
   Serial.begin(9600);
@@ -168,10 +190,19 @@ void updateControl(){
 
 // This is the audio which is output from the synthesizer
 int updateAudio(){ 
+  // Outputs particular waveforms based on the condition of switchSetting variable
+  if(switchSetting == 0){
     return ((int)aSin.next()*volume*decimation*arpstep)>>8; // Shift back into range after multiplying by 8 bit value  
-    //return ((int)aTriangle.next()*volume*decimation*arpstep)>>8; // Shift back into range after multiplying by 8 bit value  
-    //return ((int)aSaw.next()*volume*decimation*arpstep)>>8; // Shift back into range after multiplying by 8 bit value  
-    //return ((int)aSquare.next()*volume*decimation*arpstep)>>8; // Shift back into range after multiplying by 8 bit value   
+  }
+  else if(switchSetting == 1){
+    return ((int)aTriangle.next()*volume*decimation*arpstep)>>8; // Shift back into range after multiplying by 8 bit value  
+  }
+  else if(switchSetting == 2){
+    return ((int)aSaw.next()*volume*decimation*arpstep)>>8; // Shift back into range after multiplying by 8 bit value  
+  }
+  else if(switchSetting == 3){
+    return ((int)aSquare.next()*volume*decimation*arpstep)>>8; // Shift back into range after multiplying by 8 bit value  
+  }    
 }
 
 // This loops through updateAudio() automatically so changes to updateAudio() are heard instantly
