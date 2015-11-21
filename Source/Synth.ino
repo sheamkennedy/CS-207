@@ -30,6 +30,10 @@
 // Include delay for use in arpeggio
 #include <EventDelay.h> // Since Mozzi does not allow delay commands to be used we use this instead
 
+// Include these for vibrato functionality
+#include <tables/cos2048_int8.h> // Cos wavetable for vibrato's oscillator
+#include <mozzi_midi.h> // For mtof
+#include <mozzi_fixmath.h>
 
 // Defines the control rate of the Mozzi
 #define CONTROL_RATE 64 // must be a power of 2
@@ -45,6 +49,12 @@ Oscil<SQUARE_ANALOGUE512_NUM_CELLS, AUDIO_RATE> aSquare(SQUARE_ANALOGUE512_DATA)
 // Give our event delay a meaningful variable name
 EventDelay arpeggioChangeDelay;
 
+// For the waves being used to create vibrato
+// Use: Oscil <table_size, update_rate> oscilName (wavetable), look in .h file of table #included above
+// Gives meaningful names to our waveforms
+Oscil<COS2048_NUM_CELLS, AUDIO_RATE> aCos(COS2048_DATA);
+Oscil<COS2048_NUM_CELLS, AUDIO_RATE> aVibrato(COS2048_DATA);
+
 // Set analog pins as inputs so we can use potentiometers to control the device
 const char INPUT_PIN = 0; // set the input for the knob to analog pin 0
 const char INPUT_PIN1 = 1; // set the input for the knob to analog pin 1
@@ -52,6 +62,7 @@ const char INPUT_PIN2 = 2; // set the input for the knob to analog pin 2
 
 // Set up digital pins to be used as switches 
 #define STOP_PIN 7 // Switch for arpeggios pattern change
+#define STOP_PIN4 6 // Switch for turning on/off vibrato (works by setting the variable "depth")
 
 // Constants
 const byte volume = 100; // This is a multiplication factor to make the audio out louder if higher or quiter if lower
@@ -62,16 +73,19 @@ byte pitch = 0; //Pitch intensity
 char arpstep = 1; // Arpeggiator step
 byte pitchstep = 0; // Pitch step
 byte tempo = 0; // Tempo of arpeggiator
+float depth = 0.1; // Depth of vibrato
 
 // This is our initializing statement/setup:
 void setup(){
   // Setup up digital pins as inputs
   pinMode(STOP_PIN, INPUT);
+  pinMode(STOP_PIN4, INPUT);
   
   // Begins Mozzi at the control rate specified above
   startMozzi(CONTROL_RATE);
 
-
+  // Set the vibrato's frequency here since it is to be constant
+  aVibrato.setFreq(1500.0f);
 
   // Initialize the arpeggiators tempo
   //arpeggioChangeDelay.set(tempo);
@@ -87,6 +101,10 @@ void updateControl(){
 
   // Read digital pin values
   int patternSwitch = digitalRead(STOP_PIN); // Reads switch value for pattern
+  int vibratoSwitch = digitalRead(STOP_PIN4); // Reads switch value for vibrato
+
+  // A formula that determines the degree of vibrato based on the depth
+  float vibrato = depth * aVibrato.next();
   
   // Change global variables based on the orientation of each analog potentiometer
   tempo = map(sensor_value, 1, 1023, 0, 255); // Starts at 1 because we don't want tempo to be zero
@@ -95,6 +113,13 @@ void updateControl(){
 
   // Updates argeggio to match newly set tempo
   arpeggioChangeDelay.set(tempo);
+
+  // Condition checks if switch is on/off and sets vibrato depth accordingly
+  if(vibratoSwitch == LOW){ 
+    depth = 0; // When depth is zero the vibrato becomes zero (off)
+  } else if(vibratoSwitch == HIGH){ 
+    depth = 0.1; // Vibrato turns (on) with a depth factor of 0.1
+  }
 
   // Condition checks orientation of pattern switch and plays the corresponding pattern
   if(patternSwitch == LOW){
@@ -110,10 +135,10 @@ void updateControl(){
       arpeggioChangeDelay.start(); // Delay before playing next note in arpeggio based on tempo 
     }
     // Set the overall pitch of all waveforms (note only one is actually playing)
-    aSin.setFreq(760+(10*pitch)+(pitchstep*120));
-    aTriangle.setFreq(760+(10*pitch)+(pitchstep*120));
-    aSaw.setFreq(760+(10*pitch)+(pitchstep*120));
-    aSquare.setFreq(760+(10*pitch)+(pitchstep*120));
+    aSin.setFreq(760+(10*pitch)+(pitchstep*120) + vibrato);
+    aTriangle.setFreq(760+(10*pitch)+(pitchstep*120) + vibrato);
+    aSaw.setFreq(760+(10*pitch)+(pitchstep*120) + vibrato);
+    aSquare.setFreq(760+(10*pitch)+(pitchstep*120) + vibrato);
   }
   } else {
   for(int arpeggio = 0; arpeggio < 5; arpeggio++){
@@ -128,10 +153,10 @@ void updateControl(){
       arpeggioChangeDelay.start(); // Delay before playing next note in arpeggio based on tempo 
     }  
     // Set the overall pitch of all waveforms (note only one is actually playing)
-    aSin.setFreq(760+(10*pitch)+(pitchstep*960));
-    aTriangle.setFreq(760+(10*pitch)+(pitchstep*960));
-    aSaw.setFreq(760+(10*pitch)+(pitchstep*960));
-    aSquare.setFreq(760+(10*pitch)+(pitchstep*960));
+    aSin.setFreq(760+(10*pitch)+(pitchstep*960) + vibrato);
+    aTriangle.setFreq(760+(10*pitch)+(pitchstep*960) + vibrato);
+    aSaw.setFreq(760+(10*pitch)+(pitchstep*960) + vibrato);
+    aSquare.setFreq(760+(10*pitch)+(pitchstep*960) + vibrato);
   }    
   }
   
