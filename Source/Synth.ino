@@ -1,20 +1,28 @@
 /*  
   Synth 
- 
-  Example using a potentiometer to control the amplitude of a sinewave
-  with Mozzi sonification library. This example has been further modified
-  to support more user input control. 
-  Demonstrates the use of Oscil to play a wavetable, and analog input for control.
-  This example goes with a tutorial on the Mozzi site:
-  http://sensorium.github.io/Mozzi/learn/introductory-tutorial/
+  
+  This program consists of 2 parts: a synthesizer and a 16-step apreggiator. 
+  
+  Part 1)
+  The synthesizer allows the user to choose a specific waveform to be sounded and for 
+  vibrato to be turned on or off. The synthesizer has a master volume control, decimator 
+  control and a pitch control knob for modifying the sound.
+  
+  Part 2)
+  The arpeggiator takes the synthesized sound and plays it in a 16-step pattern in
+  which each step in the pattern is of a different pitch. There are 2 patterns to 
+  choose from using a switch. A tempo knob has also been implemented to control
+  the speed of the arpeggio.
   
   The circuit:
+  A schematic of this circuit can be found in README.md at the following link
+  https://github.com/sheamkennedy/CS-207/blob/master/README.md
 
- 
   Mozzi help/discussion/announcements:
   https://groups.google.com/forum/#!forum/mozzi-users
+  
   Tim Barrass 2013, CC by-nc-sa.
-  Modified Oct. 26 by Shea Kennedy
+  Modified Nov. 21 by Shea Kennedy
 */
 
 // Include stuff needed for Mozzi program
