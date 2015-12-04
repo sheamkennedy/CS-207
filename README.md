@@ -29,7 +29,7 @@ FEATURES:
 
 CONFIGURATION:
 
-  Provided below is the schematic for this project.
+  Provided below is the schematic for this project:
   
   ![Schematic](http://i.imgur.com/0ZlaxsH.jpg)
 
@@ -55,11 +55,20 @@ MANIFEST:
   
   tables/sin2048_int8.h
   
+  tables/triangle2048_int8.h
+  
+  tables/saw2048_int8.h
+  
+  tables/square_analogue512_int8.h
+  
   tables/cos2048_int8.h
   
+  EventDelay.h
+
   mozzi_midi.h
   
   mozzi_fixmath.h
+  
 
 COPYRIGHT NOTICE:
 
