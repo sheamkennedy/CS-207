@@ -1,13 +1,21 @@
   These are the headers used in this project:
   
-  MozziGuts.h
-  
-  Oscil.h
-  
-  tables/sin2048_int8.h
-  
-  tables/cos2048_int8.h
-  
-  mozzi_midi.h
-  
-  mozzi_fixmath.h
+   MozziGuts.h
+
+   Oscil.h
+
+   tables/sin2048_int8.h
+
+   tables/triangle2048_int8.h
+
+   tables/saw2048_int8.h
+
+   tables/square_analogue512_int8.h
+
+   EventDelay.h
+
+   tables/cos2048_int8.h
+
+   mozzi_midi.h
+
+   mozzi_fixmath.h
