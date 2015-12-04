@@ -161,7 +161,9 @@ void updateControl(){
       arpstep = 1-arpstep; // Changes arpstep between values 0 and 1 (if 0 we hear silence, if 1 we hear sound)
       pitchstep = pitchstep + 1; // Increments the step of the arpeggio we are on (there are a total of 16 steps)
       // Reset pitchstep once we have reached the final step in the arpeggio
-      if(pitchstep == 32){
+      // 32 because there is a 16-step sequence containing 16 sound on's and 16 sound off's
+      
+      if(pitchstep == 32){ 
         pitchstep = 0;
       }
       arpeggioChangeDelay.start(); // Delay before playing next note in arpeggio based on tempo 
