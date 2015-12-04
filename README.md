@@ -1,10 +1,9 @@
 # CS-207 - 16 Step Arpeggiator/Synthesizer
 
 DESCRIPTION:
-
   The aim of this project is to build a device that both functions as a simple synthesizer as well as a 16-step      arpeggiator. 
 
-  This project focuses on the creation of an Arduino sketch (program) which will rely on a sound synthesis library     called Mozzi to output a variety of sound waveforms. A physical interface will be constructed consisting of inputs   like: switches, knobs and sliders that will be used to take in user inputs and will alter or modify the sound being   output by the synthesizer. Furthermore the project will look at arranging the synthesized sound in to a pattern of   notes (a sequence) which the user can also manipulate through user inputs.
+  This project focuses on the creation of an Arduino sketch (program) which will rely on a sound synthesis library     called Mozzi to output a variety of sound waveforms. A physical interface will be constructed consisting of inputs   like: switches, knobs and sliders that will be used to take in user inputs and will alter or modify the sound being   output by the synthesizer. Furthermore the project will look at arranging the synthesized sound in to a pattern of   notes (an arpeggio) which the user can also manipulate through user inputs.
   
 FEATURES:
   The synthesizer being built will consist of the following features:
@@ -23,14 +22,14 @@ FEATURES:
 
   Tempo - a knob which controls the speed at which the sounds in the sequence are	triggered.
   
-  Step Pattern Selection - a switch which allows the user to choose the pattern in which 	the notes play. The first    pattern will be the original pattern which is in the order 1-2-3-4. The second pattern will be a reversed pattern    which plays the notes in the order 4-3-2-1.
+  Step Pattern Selection - a switch which allows the user to choose the pattern in which 	the notes play. The first    pattern will be the original pattern which is in a pitch-up sequence 1 thru 16 notes. The second pattern will be a similar pitch-up pattern sequence of 1 thru 16 notes with greater steps in pitch rise.
   
   ![Synth Concept](http://s28.postimg.org/65hl2z2od/Synth_Concept.jpg)
   
 
 CONFIGURATION:
 
-  The schematic for this project is still under construction. The provided schematic below is not yet up to date.
+  Provided below is the schematic for this project.
   
   ![Schematic](http://i.imgur.com/0ZlaxsH.jpg)
 
@@ -48,7 +47,7 @@ INSTALLATION INSTRUCTIONS:
 
 MANIFEST:
   
-  So far this project includes the following files:
+  This project includes the following files:
   
   MozziGuts.h
   
